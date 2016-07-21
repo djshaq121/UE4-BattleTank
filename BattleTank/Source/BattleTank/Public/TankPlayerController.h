@@ -17,4 +17,6 @@ class BATTLETANK_API ATankPlayerController : public APlayerController
 public:
 	ATank *GetControlledTank() const;
 
-};
+	//This inhertice from actor 
+	 virtual void BeginPlay() override;
+ };
