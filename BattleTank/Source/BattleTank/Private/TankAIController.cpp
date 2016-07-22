@@ -9,12 +9,12 @@ void ATankAIController::BeginPlay()
 	Super::BeginPlay();
 
 	//protecting pointers 
-	auto ControlledTank = GetControlledTank();
-	if (!ControlledTank) {
-		UE_LOG(LogTemp, Warning, TEXT("AIController not possesing a tank"));
+	auto PlayerTank = GetControlledTank();
+	if (!PlayerTank) {
+		UE_LOG(LogTemp, Warning, TEXT("AIController can't find player tank"));
 	}
 	else {
-		UE_LOG(LogTemp, Warning, TEXT("AIController possing: %s"), *(ControlledTank->GetName()));
+		UE_LOG(LogTemp, Warning, TEXT("AIController found player tank %s"), *(PlayerTank->GetName()));
 	}
 }
 
@@ -24,4 +24,11 @@ ATank* ATankAIController::GetControlledTank() const
 
 	return Cast<ATank>(GetPawn());
 	UE_LOG(LogTemp, Warning, TEXT("Posssessing begin play"));
+}
+
+ATank *ATankAIController::GetPlayerTank() const
+{
+	auto PlayerPawn = GetWorld()->GetFirstPlayerController();
+	if (!PlayerPawn) { return nullptr; }//Checks if there is a playerController if not then return a nullpointer
+	return Cast<ATank>(PlayerPawn);
 }
