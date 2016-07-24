@@ -6,7 +6,9 @@
 #include "GameFramework/Pawn.h"
 #include "Tank.generated.h"
 
-UCLASS()
+class UTankBarrel;
+
+UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))//This allow
 class BATTLETANK_API ATank : public APawn
 {
 	GENERATED_BODY()
@@ -17,7 +19,7 @@ public:
 
 	//This allows this method to be called from blueprint
 	UFUNCTION(BlueprintCallable, Category = Setup)
-	void SetBarrelReference(UStaticMeshComponent* BarrelToSet);
+	void SetBarrelReference(UTankBarrel* BarrelToSet);
 
 protected:
 	UTankAimingComponent* TankAimingComponent = nullptr;
