@@ -2,13 +2,13 @@
 
 #pragma once
 
-#include "TankAimingComponent.h"
 #include "GameFramework/Pawn.h"
 #include "Tank.generated.h"
 
 class UTankBarrel;
+class UTankAimingComponent;
 
-UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))//This allow
+UCLASS()
 class BATTLETANK_API ATank : public APawn
 {
 	GENERATED_BODY()

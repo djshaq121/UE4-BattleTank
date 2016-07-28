@@ -8,6 +8,7 @@
 /**
  * 
  */
+
 UCLASS(meta = (BlueprintSpawnableComponent),hidecategories = ("Collision"))//This allows tankBarrel to be added into the blueprint
 class BATTLETANK_API UTankBarrel : public UStaticMeshComponent
 {

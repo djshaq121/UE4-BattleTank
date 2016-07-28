@@ -4,6 +4,7 @@
 #include "TankBarrel.h"
 #include "TankAimingComponent.h"
 
+class UTankBarrel;
 
 // Sets default values for this component's properties
 UTankAimingComponent::UTankAimingComponent()
@@ -33,13 +34,20 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 		FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));//This gets the socket location
 
 	//Calculate the OutLaunchVelocity
-		bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity(
+		//The was a porblem with the code, even thought the default value was set we still must 
+		//specify the parameter
+		bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity
+		(
 			this,
 			OutLaunchVelocity,
 			StartLocation,
 			HitLocation,
 			LaunchSpeed,
-			ESuggestProjVelocityTraceOption::DoNotTrace);
+			false,
+			0,
+			0,
+			ESuggestProjVelocityTraceOption::DoNotTrace //Parameter must be present to prevent bug 
+		);
 
 		if(bHaveAimSolution)
 		{
