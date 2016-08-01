@@ -30,8 +30,7 @@ void AProjectile::Tick( float DeltaTime )
 
 void AProjectile::LaunchProjectile(float speed)
 {
-	auto time = GetWorld()->GetTimeSeconds();
-	UE_LOG(LogTemp, Warning, TEXT("%f Projectile fires Fires: %f "), time, speed);
+
 	
 	//This sets the speed of the projectile in the direction of the barrel
 	ProjectileMovement->SetVelocityInLocalSpace(FVector::ForwardVector * speed);
