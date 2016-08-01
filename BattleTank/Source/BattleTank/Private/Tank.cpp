@@ -39,19 +39,24 @@ void ATank::BeginPlay()
 void ATank::Fire()
 {
 	
+	//This reloads the tank 
+	//FPlatformTime::Seconds() is more precise
+	bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
 
-	if (!Barrel) { return; }
+	if (Barrel && isReloaded) 
+	{
+		//Spawn a projectile from the socket location
+		//We return the projectile into a variable called 'projectile' than call the mtehod launchProjectile
+		auto projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileBlueprint,
+			Barrel->GetSocketLocation(FName("Projectile")),
+			Barrel->GetSocketRotation(FName("Projectile"))
+			);
 
+		//Calling launchProjectile
+		projectile->LaunchProjectile(LaunchSpeed);
+		LastFireTime = FPlatformTime::Seconds();
+	}
 
-	//Spawn a projectile from the socket location
-	//We return the projectile into a variable called 'projectile' than call the mtehod launchProjectile
-	auto projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileBlueprint,
-		Barrel->GetSocketLocation(FName("Projectile")),
-		Barrel->GetSocketRotation(FName("Projectile"))
-		);
-	
-	//Calling launchProjectile
-	projectile->LaunchProjectile(LaunchSpeed);
 
 }
 // Called to bind functionality to input
