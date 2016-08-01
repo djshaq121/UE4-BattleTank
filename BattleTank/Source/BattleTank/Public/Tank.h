@@ -42,17 +42,18 @@ private:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
 
-	UPROPERTY(EditAnywhere, Category= Firing)//This makes it appear in the unreal BP under ther category "Firing"
-	float LaunchSpeed = 4000.0;
-
-	UPROPERTY(EditAnywhere, Category = Setup)
+	UPROPERTY(EditDefaultsOnly, Category = Setup)
 	TSubclassOf<AProjectile> ProjectileBlueprint;
+
+	UPROPERTY(EditDefaultsOnly, Category= Firing)//This makes it appear in the unreal BP under ther category "Firing"
+	float LaunchSpeed = 4000.0;
+		
+	UPROPERTY(EditDefaultsOnly, Category = Firing)//'EditDefaultsOnly' Makes it so that it can only be edited in the Blueprint
+	float ReloadTimeInSeconds = 3; // Rather than for seprate instance. So each tank cant have different reload speeds
 
 	//Local barrel reference for spawning projectile
 	UTankBarrel* Barrel = nullptr;
 	
-	float ReloadTimeInSeconds = 3;
-
 	double LastFireTime = 0;
 
 };
