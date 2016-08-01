@@ -32,7 +32,11 @@ void ATank::BeginPlay()
 	
 }
 
-
+void ATank::Fire()
+{
+	auto time = GetWorld()->GetTimeSeconds();
+	UE_LOG(LogTemp, Warning, TEXT("%f Tank Fires: "), time);
+}
 // Called to bind functionality to input
 void ATank::SetupPlayerInputComponent(class UInputComponent* InputComponent)
 {
