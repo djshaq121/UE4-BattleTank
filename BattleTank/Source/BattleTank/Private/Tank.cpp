@@ -38,19 +38,21 @@ void ATank::BeginPlay()
 
 void ATank::Fire()
 {
-	auto time = GetWorld()->GetTimeSeconds();
-	UE_LOG(LogTemp, Warning, TEXT("%f Tank Fires: "), time);
+	
 
 	if (!Barrel) { return; }
 
 
 	//Spawn a projectile from the socket location
-	GetWorld()->SpawnActor<AProjectile>(ProjectileBlueprint,
+	//We return the projectile into a variable called 'projectile' than call the mtehod launchProjectile
+	auto projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileBlueprint,
 		Barrel->GetSocketLocation(FName("Projectile")),
 		Barrel->GetSocketRotation(FName("Projectile"))
-
-
 		);
+	
+	//Calling launchProjectile
+	projectile->LaunchProjectile(LaunchSpeed);
+
 }
 // Called to bind functionality to input
 void ATank::SetupPlayerInputComponent(class UInputComponent* InputComponent)
