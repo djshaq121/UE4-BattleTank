@@ -11,4 +11,9 @@ void UTankTrack::SetThrottle(float Throttle)
 	auto name = GetName();
 	UE_LOG(LogTemp, Warning, TEXT("%s Projectile fires Fires: %f "), *name, Throttle);
 	//TODO clamp the the throttle value so player cant  over drive 
+
+	auto ForceApplied = GetForwardVector() * Throttle * TrackMaxDrivingForce;//The forward vector is the direction that is straight in front of the actor, based on its root component
+	auto ForceLocation = GetComponentLocation();
+	auto TankRoot = Cast<UPrimitiveComponent>(GetOwner()->GetRootComponent());// Cast the root, 'Tank', to a PrimitiveComponent
+	TankRoot->AddForceAtLocation(ForceApplied, ForceLocation);
 }
