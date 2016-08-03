@@ -22,7 +22,8 @@ void ATankAIController::Tick(float DeltaTime)
 	if (PlayerTank)
 	{
 		//Move the tank towards the player
-
+		//3000cm = 30m
+		MoveToActor(PlayerTank, AcceptanceRadius);
 		//Aim at the player 
 		AITank->AimAt(PlayerTank->GetActorLocation());
 

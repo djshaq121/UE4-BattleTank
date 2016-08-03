@@ -12,6 +12,15 @@ void UTankMovementComponent::Initialise(UTankTrack* LeftTrackToSet, UTankTrack* 
 
 }
 
+
+void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed)
+{
+	//No reason to call super because we are replacing the functionality
+	auto TankName = GetOwner()->GetName();
+	auto MoveVelocityString = MoveVelocity.ToString();
+	UE_LOG(LogTemp, Warning, TEXT("%s Vectoring to %s"), *TankName, *MoveVelocityString)
+}
+
 //This method doesnt requre anothr method to move back back the analog stick can give a negatibe number which will reverse the tank 
 void UTankMovementComponent::IntendMoveForward(float Throw)
 {
