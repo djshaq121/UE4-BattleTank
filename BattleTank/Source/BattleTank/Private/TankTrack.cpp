@@ -4,7 +4,7 @@
 #include "TankTrack.h"
 
 
-
+//This is what moves the tank 
 void UTankTrack::SetThrottle(float Throttle)
 {
 	//auto time = GetWorld()->GetTimeSeconds();
