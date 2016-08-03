@@ -7,6 +7,10 @@
 
 class UTankBarrel;
 
+/**
+*If you want to make the game aiming inverted go to the unreal 'input', select aim elvation and change to '-1.0'
+*/
+
 // Sets default values for this component's properties
 UTankAimingComponent::UTankAimingComponent()
 {
