@@ -36,7 +36,7 @@ public:
 protected:
 	//Declaring and initailising the enum
 	UPROPERTY(BlueprintReadOnly, Category = "State")
-	EFiringState FiringState = EFiringState::Aiming;
+	EFiringState FiringState = EFiringState::Lock;
 
 private:
 	// Sets default values for this component's properties
