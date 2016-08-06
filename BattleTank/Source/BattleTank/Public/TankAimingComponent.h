@@ -31,7 +31,8 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Setup")
 	void Initialise(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet);
 
-	void AimAt(FVector HitLocation, float LaunchSpeed);
+	void AimAt(FVector HitLocation);
+
 
 protected:
 	//Declaring and initailising the enum
@@ -48,5 +49,7 @@ private:
 
 	void MoveBarrelTowards(FVector AimDirection);
 	
-
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")//This makes it appear in the unreal BP under ther category "Firing"
+	float LaunchSpeed = 4000.0;
 };

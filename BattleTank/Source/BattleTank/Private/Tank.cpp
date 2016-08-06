@@ -2,7 +2,6 @@
 #include "BattleTank.h"
 #include "TankBarrel.h"
 #include "Projectile.h"
-#include "TankAimingComponent.h"//You will include this class if its used in the class
 #include "Tank.h"
 
 
@@ -18,17 +17,11 @@ ATank::ATank()
 
 }
 
-void ATank::AimAt(FVector HitLocation)
-{
-	if (!ensure(TankAimingComponent)) { return; }
-	TankAimingComponent->AimAt(HitLocation, LaunchSpeed);
-}
-
 // Called when the game starts or when spawned
 void ATank::BeginPlay()
 {
 	Super::BeginPlay();
-	TankAimingComponent = FindComponentByClass<UTankAimingComponent>();
+
 }
 
 void ATank::Fire()
