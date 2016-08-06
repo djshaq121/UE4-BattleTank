@@ -38,7 +38,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 	//auto BarrelLocation = Barrel->GetComponentLocation().ToString();//we created a barrel virable, we get the barrel location yousing the get, IT returns a FVector so we use a ToString to change it to a string
 	//UE_LOG(LogTemp, Warning, TEXT("%s aiming at %s from %s"), *OurTankName, *HitLocation.ToString(), *BarrelLocation);
 	
-	if (!Barrel) { return; }
+	if (!ensure(Barrel)) { return; }
 		FVector OutLaunchVelocity;
 		FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));//This gets the socket location
 
@@ -70,7 +70,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 
 void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 {
-	if (!Barrel || !Turret) { return; }
+	if (!ensure(Barrel && Turret)) { return; }
 	//Work-out difference between current barrel roation, and AimDirection
 	auto BarrelRotator = Barrel->GetForwardVector().Rotation();//Get forward vector the direction the barrel is facing
 	auto AimAsRotator = AimDirection.Rotation();

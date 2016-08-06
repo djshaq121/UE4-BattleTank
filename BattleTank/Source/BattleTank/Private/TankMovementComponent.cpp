@@ -6,7 +6,7 @@
 
 void UTankMovementComponent::Initialise(UTankTrack* LeftTrackToSet, UTankTrack* RightTrackToSet)
 {
-	if (!LeftTrackToSet || !RightTrackToSet) { return; }
+	if (!ensure(LeftTrackToSet && RightTrackToSet)) { return; }
 	LeftTrack = LeftTrackToSet;
 	RightTrack = RightTrackToSet;
 
@@ -31,7 +31,7 @@ void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool
 void UTankMovementComponent::IntendMoveForward(float Throw)
 {
 	
-	if (!LeftTrack || !RightTrack) { return; }
+	if (!ensure(LeftTrack && RightTrack)) { return; }
 	/**
 	* This gets the variables left track and right track and calls the setThrottle in the tank track class
 	* which moves the tank 
@@ -46,7 +46,7 @@ void UTankMovementComponent::IntendMoveForward(float Throw)
 //This method is similar to the intendMoveForward we only need to add a minus to the throw on the right track to move it left or right 
 void UTankMovementComponent::IntendTurnRight(float Throw)
 {
-	if (!LeftTrack || !RightTrack) { return; }
+	if (!ensure(LeftTrack && RightTrack)) { return; }
 
 	/**
 	* This gets the variables left track and right track and calls the setThrottle in the tank track class

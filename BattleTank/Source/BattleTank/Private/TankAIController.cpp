@@ -19,7 +19,7 @@ void ATankAIController::Tick(float DeltaTime)
 	auto PlayerTank = Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn());//This cast it from a pawn to a tank
 	auto AITank = Cast<ATank>(GetPawn());
 
-	if (PlayerTank)
+	if (ensure(PlayerTank))
 	{
 		//Move the tank towards the player
 		//3000cm = 30m
