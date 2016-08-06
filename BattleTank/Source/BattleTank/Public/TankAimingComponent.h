@@ -18,6 +18,7 @@ enum class EFiringState : uint8
 //Forward Declaration
 class UTankBarrel; 
 class UTankTurret;
+class AProjectile;
 
 //Holds barrel's properties and elevate method
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -33,6 +34,8 @@ public:
 
 	void AimAt(FVector HitLocation);
 
+	UFUNCTION(BlueprintCallable, Category = "Firing")
+	void Fire();
 
 protected:
 	//Declaring and initailising the enum
@@ -43,13 +46,23 @@ private:
 	// Sets default values for this component's properties
 	UTankAimingComponent();
 
+
+	void MoveBarrelTowards(FVector AimDirection);
+
 	UTankBarrel* Barrel = nullptr;
 
 	UTankTurret* Turret = nullptr;
 
-	void MoveBarrelTowards(FVector AimDirection);
-	
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")//This makes it appear in the unreal BP under ther category "Firing"
 	float LaunchSpeed = 4000.0;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+		TSubclassOf<AProjectile> ProjectileBlueprint;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")//'EditDefaultsOnly' Makes it so that it can only be edited in the Blueprint
+		float ReloadTimeInSeconds = 3; // Rather than for seprate instance. So each tank cant have different reload speeds
+
+
+	double LastFireTime = 0;
 };
