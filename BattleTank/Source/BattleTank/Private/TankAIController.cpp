@@ -30,9 +30,7 @@ void ATankAIController::Tick(float DeltaTime)
 		//Fire if ready
 		AITank->Fire();//TODO Limit the firing rate
 	}
-	else {
-	//	UE_LOG(LogTemp, Warning, TEXT("AIController can't find player tank"));
-	}
+	
 }
 
 

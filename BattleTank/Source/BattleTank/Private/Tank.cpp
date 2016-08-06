@@ -1,7 +1,6 @@
  // CopyRight Shaquille Etienne
 #include "BattleTank.h"
 #include "TankBarrel.h"
-#include "TankMovementComponent.h"
 #include "Projectile.h"
 #include "TankAimingComponent.h"//You will include this class if its used in the class
 #include "Tank.h"
@@ -13,8 +12,7 @@ ATank::ATank()
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
 
-	auto TankName = GetName();
-	UE_LOG(LogTemp, Warning, TEXT("%s: Donkey: Tank C++ Construct "), *TankName)
+	
 	//No need to protect points as added at construction
 	//TankAimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("Aiming component"));// This make its appear as inhertinace in the bp
 
@@ -30,10 +28,7 @@ void ATank::AimAt(FVector HitLocation)
 void ATank::BeginPlay()
 {
 	Super::BeginPlay();
-
-	auto TankName = GetName();
-	UE_LOG(LogTemp, Warning, TEXT("%s: Donkey: Tank C++ Begin play "), *TankName)
-	
+	TankAimingComponent = FindComponentByClass<UTankAimingComponent>();
 }
 
 void ATank::Fire()
