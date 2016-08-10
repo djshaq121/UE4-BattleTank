@@ -3,6 +3,23 @@
 #include "BattleTank.h"
 #include "TankTrack.h"
 
+UTankTrack::UTankTrack()
+{
+	PrimaryComponentTick.bCanEverTick = true;
+}
+
+void UTankTrack::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
+{
+	//Calculate the sideways speed
+	auto SlippageSpeed = FVector::DotProduct(GetRightVector(), GetComponentVelocity());
+	//work out the required acceleration this frame to correct
+	auto CorrectionAcceleration = -SlippageSpeed / DeltaTime * GetRightVector();
+		
+	//Calculate and apply sideways (F = m a)
+	auto TankRoot = Cast<UStaticMeshComponent>(GetOwner()->GetRootComponent());
+	auto CorrectionForce = (TankRoot->GetMass() * CorrectionAcceleration) / 2;//two tracks
+	TankRoot->AddForce(CorrectionForce);
+}
 
 //This is what moves the tank 
 void UTankTrack::SetThrottle(float Throttle)
