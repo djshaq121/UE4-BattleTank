@@ -52,6 +52,8 @@ private:
 
 	void MoveBarrelTowards(FVector AimDirection);
 
+	bool IsBarrelMoving();
+
 	UTankBarrel* Barrel = nullptr;
 
 	UTankTurret* Turret = nullptr;
@@ -66,6 +68,7 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")//'EditDefaultsOnly' Makes it so that it can only be edited in the Blueprint
 		float ReloadTimeInSeconds = 3; // Rather than for seprate instance. So each tank cant have different reload speeds
 
+	FVector AimDirection; 
 
 	double LastFireTime = 0;
 };
