@@ -37,6 +37,8 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Firing")
 	void Fire();
 
+	EFiringState GetFiringState() const;
+
 protected:
 	//Declaring and initailising the enum
 	UPROPERTY(BlueprintReadOnly, Category = "State")
