@@ -11,7 +11,8 @@ enum class EFiringState : uint8
 {
 	Reloading,
 	Aiming,
-	Lock
+	Lock,
+	OutOfAmmo
 };
 
 
@@ -38,6 +39,9 @@ public:
 	void Fire();
 
 	EFiringState GetFiringState() const;
+
+	UFUNCTION(BlueprintCallable, Category = "Firing")	
+	int GetRoundsLeft() const;
 
 protected:
 	//Declaring and initailising the enum
@@ -70,7 +74,12 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")//'EditDefaultsOnly' Makes it so that it can only be edited in the Blueprint
 		float ReloadTimeInSeconds = 3; // Rather than for seprate instance. So each tank cant have different reload speeds
 
+	
+	int RoundsLeft = 3;
+
 	FVector AimDirection; 
 
 	double LastFireTime = 0;
+
+	
 };

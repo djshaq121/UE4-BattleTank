@@ -31,7 +31,11 @@ void UTankAimingComponent::BeginPlay()
 
 void UTankAimingComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
 {
-	if ((FPlatformTime::Seconds() - LastFireTime) < ReloadTimeInSeconds)
+	if(RoundsLeft <= 0)
+	{
+		FiringState = EFiringState::OutOfAmmo;
+	}
+	else if ((FPlatformTime::Seconds() - LastFireTime) < ReloadTimeInSeconds)
 	{
 		FiringState = EFiringState::Reloading;
 	}
@@ -112,7 +116,7 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 
 	Barrel->Elevate(DeltaRotator.Pitch);
 	//FMath::Abs(DeltaRotator.Yaw);//This makes show that the tank takes the shortest path to aim
-	if (DeltaRotator.Yaw < 180)
+	if (FMath::Abs(DeltaRotator.Yaw) < 180)
 	{
 		Turret->Rotate(DeltaRotator.Yaw);
 	}
@@ -123,10 +127,15 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 	
 }
 
+int UTankAimingComponent::GetRoundsLeft() const
+{
+	return RoundsLeft;
+}
+
 void UTankAimingComponent::Fire()
 {
 	
-	if (FiringState != EFiringState::Reloading)
+	if ((FiringState == EFiringState::Aiming)||(FiringState == EFiringState::Lock))
 	{
 		//Spawn a projectile from the socket location
 		//We return the projectile into a variable called 'projectile' than call the mtehod launchProjectile
@@ -141,6 +150,8 @@ void UTankAimingComponent::Fire()
 		//Calling launchProjectile
 		projectile->LaunchProjectile(LaunchSpeed);
 		LastFireTime = FPlatformTime::Seconds();
+		RoundsLeft--;
+
 	}
 }
 
